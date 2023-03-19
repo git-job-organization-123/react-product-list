@@ -1,38 +1,187 @@
-.App {
-  text-align: center;
+body {
+  margin: 0 300px;
 }
 
-.App-logo {
-  height: 40vmin;
+.select-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.select-container select {
+  flex-basis: 20%;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.container .box {
+  flex-basis: 30%;
+  margin-bottom: 8px;
+  background-color: lightblue;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container .box:hover {
+  box-shadow: 0 0 0px 2px #aaa;
+}
+
+/* Apply right side margin to last box if there are two boxes in one row */
+.container .box:last-child:nth-child(3n+2) {
+  margin-right: calc(30% + 28px);
+}
+
+.container .box .description-row,
+.container .box .price-row {
+  margin-bottom: 8px;
+}
+
+.container .box .image-row img {
+  width: calc(100% + 20px);
+  margin-left: -10px;
+  height: auto;
+}
+
+.container .box .title-row .title {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.container .box .description-row .description {
+  font-size: 16px;
+}
+
+.container .box .price-row .price {
+  font-size: 24px;
+}
+
+.container .box .modal {
+  cursor: default;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.container .box .modal .modal-box {
+  background-color: #fefefe;
+  margin: 10px auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.container .box .modal .modal-box .modal-content {
+  height: 70vh;
+}
+
+.container .box .modal .modal-box .modal-content h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+}
+
+.container .box .modal .modal-box .modal-content .description {
+  margin-bottom: 1rem;
+}
+
+.container .box .modal .modal-box .modal-content .price {
+  font-size: 2.2rem;
+}
+
+.container .box .modal .modal-box .modal-header .close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container .box .modal .modal-box .modal-header .close:hover {
+  color: red;
+}
+
+.container .box .modal .modal-box .modal-content .services-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.container .box .modal .modal-box .modal-content .services-list li {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.container .box .modal .modal-box .modal-content .services-list li.selected {
+  background-color: #f0f0f0;
+}
+
+.container .box .modal .modal-box .modal-footer .stage-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.container .box .modal .modal-box .modal-footer .stage-buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+.container .box .modal .modal-box .modal-footer .stage-buttons button:not(:disabled) {
+  cursor: pointer;
+}
+
+.container .box .modal .modal-box .modal-footer .stage-buttons button:disabled {
+  visibility: hidden;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container .box .modal .modal-box .modal-footer .stage-buttons button:hover {
+  background-color: #0069d9;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container .box .modal .modal-box .modal-content .customer-form fieldset {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
-.App-link {
-  color: #61dafb;
+.container .box .modal .modal-box .modal-content .customer-form label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  flex-basis: 50%;
+  flex-grow: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.container .box .modal .modal-box .modal-content .customer-form input[type="text"],
+.container .box .modal .modal-box .modal-content .customer-form input[type="email"],
+.container .box .modal .modal-box .modal-content .customer-form input[type="tel"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  width: 80%;
+  display: block;
 }
