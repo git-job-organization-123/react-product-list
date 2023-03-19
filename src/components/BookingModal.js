@@ -113,13 +113,44 @@ export function BookingModal({ name, description, price, code, services, closeMo
 
     const handleCustomerNextClick = (event) => {
       event.preventDefault();
-      
+
       const errors = validateForm();
       setFormErrors(errors);
 
       if (Object.keys(errors).length === 0) {
         handleNextClick();
       }
+    };
+
+    const validateFormInput = (formInputName) => {
+      if (formInputName === 'firstName' && !customer.firstName) {
+        return {'firstName': 'Please enter your first name'};
+      }
+      else if (formInputName === 'lastName' && !customer.lastName) {
+        return {'lastName': 'Please enter your last name'};
+      }
+      else if (formInputName === 'email' && !customer.email) {
+        return {'email': 'Please enter your email'};
+      }
+      else if (formInputName === 'email' && !/\S+@\S+.\S+/.test(customer[formInputName])) {
+        return {'email': 'Please enter a valid email'};
+      }
+      else if (formInputName === 'phone' && !customer.phone) {
+        return {'phone': 'Please enter your phone number'};
+      }
+      else if (formInputName === 'phone' && !/^\d{10}$/.test(customer[formInputName])) {
+        return {'phone': 'Please enter a valid 10-digit phone number'};
+      }
+    }
+
+    const handleBlur = (event) => {
+      let error = validateFormInput(event.target.name);
+      if (!error) {
+        // Remove error message
+        error = {[event.target.name]: ''};
+      }
+
+      setFormErrors((prevFormErrors) => ({ ...prevFormErrors, ...error }));
     };
 
     const validateForm = () => {
@@ -158,6 +189,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     name="firstName"
                     value={customer.firstName}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     required
                   />
                   {formErrors.firstName && (
@@ -172,6 +204,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     name="lastName"
                     value={customer.lastName}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     required
                   />
                   {formErrors.lastName && (
@@ -186,6 +219,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     name="email"
                     value={customer.email}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     required
                   />
                   {formErrors.email && (
@@ -200,6 +234,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     name="phone"
                     value={customer.phone}
                     onChange={handleInputChange}
+                    onBlur={handleBlur}
                     required
                   />
                   {formErrors.phone && (
