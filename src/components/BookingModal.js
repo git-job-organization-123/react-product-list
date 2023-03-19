@@ -141,7 +141,9 @@ export function BookingModal({ name, description, price, code, services, closeMo
       else if (formInputName === 'phone' && !/^\d{10}$/.test(customer[formInputName])) {
         return {'phone': 'Please enter a valid 10-digit phone number'};
       }
-    }
+
+      return null;
+    };
 
     const handleBlur = (event) => {
       let error = validateFormInput(event.target.name);
@@ -163,7 +165,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
 
       return errors;
     };
-    
+
     return (
       <>
         <div className="modal-content">
