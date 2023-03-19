@@ -1,0 +1,43 @@
+.container .box {
+  flex-basis: 30%;
+  margin-bottom: 8px;
+  background-color: lightblue;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.container .box:hover {
+  box-shadow: 0 0 0px 2px #aaa;
+}
+
+/* Apply right side margin to last box if there are two boxes in one row */
+.container .box:last-child:nth-child(3n+2) {
+  margin-right: calc(30% + 28px);
+}
+
+.container .box .description-row,
+.container .box .price-row {
+  margin-bottom: 8px;
+}
+
+.container .box .image-row img {
+  width: calc(100% + 20px);
+  margin-left: -10px;
+  height: auto;
+}
+
+.container .box .title-row .title {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.container .box .description-row .description {
+  font-size: 16px;
+}
+
+.container .box .price-row .price {
+  font-size: 24px;
+}
