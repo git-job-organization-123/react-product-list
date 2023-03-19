@@ -155,25 +155,15 @@ export function BookingModal({ name, description, price, code, services, closeMo
 
     const validateForm = () => {
       const errors = {};
-      if (!customer.firstName) {
-        errors.firstName = 'Please enter your first name';
-      }
-      if (!customer.lastName) {
-        errors.lastName = 'Please enter your last name';
-      }
-      if (!customer.email) {
-        errors.email = 'Please enter your email';
-      } else if (!/\S+@\S+.\S+/.test(customer.email)) {
-        errors.email = 'Please enter a valid email';
-      }
-      if (!customer.phone) {
-        errors.phone = 'Please enter your phone number';
-      } else if (!/^\d{10}$/.test(customer.phone)) {
-        errors.phone = 'Please enter a valid 10-digit phone number';
-      }
+
+      Object.assign(errors, validateFormInput('firstName'));
+      Object.assign(errors, validateFormInput('lastName'));
+      Object.assign(errors, validateFormInput('email'));
+      Object.assign(errors, validateFormInput('phone'));
+
       return errors;
     };
-
+    
     return (
       <>
         <div className="modal-content">
