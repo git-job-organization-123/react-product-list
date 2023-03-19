@@ -113,8 +113,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
 
     const handleCustomerNextClick = (event) => {
       event.preventDefault();
+      
       const errors = validateForm();
-      console.log(errors);
       setFormErrors(errors);
 
       if (Object.keys(errors).length === 0) {
