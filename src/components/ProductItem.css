@@ -41,3 +41,26 @@
 .container .box .price-row .price {
   font-size: 24px;
 }
+
+/* Media queries for smaller screens */
+@media (max-width: 1280px) {
+  .container .box:last-child:nth-child(3n+2) {
+    margin-right: calc(30% + 20px);
+  }
+}
+
+@media (max-width: 600px) {
+  .container .box:last-child:nth-child(3n+2) {
+    margin-right: 0;
+  }
+
+  .container .box {
+    flex-basis: 45%;
+  }
+}
+
+@media (max-width: 400px) {
+  .container .box {
+    flex-basis: 100%;
+  }
+}

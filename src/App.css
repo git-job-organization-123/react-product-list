@@ -11,3 +11,16 @@ body {
 .select-container select {
   flex-basis: 20%;
 }
+
+/* Media queries for smaller screens */
+@media (max-width: 1200px) {
+  body {
+    margin: 0 100px;
+  }
+}
+
+@media (max-width: 798px) {
+  body {
+    margin: 0;
+  }
+}

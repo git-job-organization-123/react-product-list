@@ -123,3 +123,17 @@
   color: #f00;
   font-weight: 400;
 }
+
+/* Media queries for smaller screens */
+@media (max-width: 798px) {
+  .container .box .modal .modal-box {
+    width: 90%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container .box .modal .modal-box .modal-content .customer-form label {
+    flex-basis: 100%;
+  }
+}
