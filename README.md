@@ -1,7 +1,17 @@
-Example usage of BookingService
+## Quickstart
+
+Start BookingService:
+
+`BookingService.exe`
+
+Start React Product List:
+
+`npm start`
+
+Goto: http://localhost:3000 in browser
 
 
-UI is still crap
+(UI is still crap)
 
 
 # Getting Started with Create React App
