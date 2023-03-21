@@ -21,7 +21,7 @@ export function ProductItem({ imageSrc, name, description, price, code, services
   return (
     <div className="box" onClick={openModal}>
       <div className="image-row">
-        <img src={imageSrc} alt="Imaget" />
+        <img src={imageSrc} alt="Image" />
       </div>
       <div className="title-row">
         <h2 className="title">{name}</h2>
