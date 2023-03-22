@@ -14,10 +14,6 @@ export function ProductItem({ imageSrc, name, description, price, code, services
     setShowModal(false);
   };
 
-  const handleModalNextClick = () => {
-    // Do nothing
-  };
-
   return (
     <div className="box" onClick={openModal}>
       <div className="image-row">
@@ -40,7 +36,6 @@ export function ProductItem({ imageSrc, name, description, price, code, services
           code={code}
           services={services} 
           closeModal={closeModal}
-          onNextClick={handleModalNextClick}
         />
       )}
     </div>

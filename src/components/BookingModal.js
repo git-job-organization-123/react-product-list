@@ -3,7 +3,7 @@ import "./BookingModal.css";
 
 import { book } from '../requestHandler.js';
 
-export function BookingModal({ name, description, price, code, services, closeModal, onNextClick }) {
+export function BookingModal({ name, description, price, code, services, closeModal }) {
   const [stage, setStage] = useState(1);
   const [selectedServices, setSelectedServices] = useState([]);
   const [formErrors, setFormErrors] = useState({});
@@ -37,7 +37,6 @@ export function BookingModal({ name, description, price, code, services, closeMo
   function onNextClick() {
     let nextStage = stage + 1;
     setStage(nextStage);
-    onNextClick(selectedServices);
   }
 
   // On selecting a service in stage 2
