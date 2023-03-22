@@ -15,33 +15,33 @@ export function BookingModal({ name, description, price, code, services, closeMo
   });
 
   // Close modal on clicking the gray area outside of the modal
-  function handleModalOutsideClick(e) {
+  function onModalOutsideClick(e) {
     // Prevent re-opening the modal
     e.stopPropagation();
     
     closeModal();
   }
 
-  function handleModalBoxClick(e) {
+  function onModalBoxClick(e) {
     // Prevent the modal from closing when clicking inside the modal
     e.stopPropagation();
   }
 
-  // Handle clicking the Back button to go to the previous stage
-  function handleBackClick() {
+  // On clicking the Back button to go to the previous stage
+  function onBackClick() {
     let backStage = stage - 1;
     setStage(backStage);
   }
 
-  // Handle clicking the Next button to go to the next stage
-  function handleNextClick() {
+  // On clicking the Next button to go to the next stage
+  function onNextClick() {
     let nextStage = stage + 1;
     setStage(nextStage);
     onNextClick(selectedServices);
   }
 
-  // Handle selecting a service in stage 2
-  function handleServiceSelect(service) {
+  // On selecting a service in stage 2
+  function onServiceSelect(service) {
     const serviceIndex = selectedServices.indexOf(service);
     if (serviceIndex === -1) {
       setSelectedServices([...selectedServices, service]);
@@ -63,8 +63,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
         </div>
         <div className="modal-footer">
           <div className="stage-buttons">
-            <button onClick={handleBackClick} disabled>Back</button>
-            <button onClick={handleNextClick}>Next</button>
+            <button onClick={onBackClick} disabled>Back</button>
+            <button onClick={onNextClick}>Next</button>
           </div>
         </div>
       </>
@@ -82,7 +82,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
               <li
                 key={service.id}
                 className={selectedServices.includes(service) ? "selected" : ""}
-                onClick={() => handleServiceSelect(service)}
+                onClick={() => onServiceSelect(service)}
               >
                 {service.name} ({service.price} €)
               </li>
@@ -91,8 +91,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
         </div>
         <div className="modal-footer">
           <div className="stage-buttons">
-            <button onClick={handleBackClick}>Back</button>
-            <button onClick={handleNextClick}>Next</button>
+            <button onClick={onBackClick}>Back</button>
+            <button onClick={onNextClick}>Next</button>
           </div>
         </div>
       </>
@@ -101,25 +101,35 @@ export function BookingModal({ name, description, price, code, services, closeMo
 
   // Customer info
   function renderStage3() {
-    const handleInputChange = (event) => {
+    const onInputChange = (event) => {
       const { name, value } = event.target;
       setCustomer((prevCustomer) => ({ ...prevCustomer, [name]: value }));
     };
 
-    const handleCustomerBackClick = (event) => {
+    const onCustomerBackClick = (event) => {
       event.preventDefault();
-      handleBackClick();
+      onBackClick();
     };
 
-    const handleCustomerNextClick = (event) => {
+    const onCustomerNextClick = (event) => {
       event.preventDefault();
 
       const errors = validateForm();
       setFormErrors(errors);
 
       if (Object.keys(errors).length === 0) {
-        handleNextClick();
+        onNextClick();
       }
+    };
+
+    const onBlur = (event) => {
+      let error = validateFormInput(event.target.name);
+      if (!error) {
+        // Remove error message
+        error = {[event.target.name]: ''};
+      }
+
+      setFormErrors((prevFormErrors) => ({ ...prevFormErrors, ...error }));
     };
 
     const validateFormInput = (formInputName) => {
@@ -143,16 +153,6 @@ export function BookingModal({ name, description, price, code, services, closeMo
       }
 
       return null;
-    };
-
-    const handleBlur = (event) => {
-      let error = validateFormInput(event.target.name);
-      if (!error) {
-        // Remove error message
-        error = {[event.target.name]: ''};
-      }
-
-      setFormErrors((prevFormErrors) => ({ ...prevFormErrors, ...error }));
     };
 
     const validateForm = () => {
@@ -180,8 +180,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     id="firstName"
                     name="firstName"
                     value={customer.firstName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
+                    onChange={onInputChange}
+                    onBlur={onBlur}
                     required
                   />
                   {formErrors.firstName && (
@@ -195,8 +195,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     id="lastName"
                     name="lastName"
                     value={customer.lastName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
+                    onChange={onInputChange}
+                    onBlur={onBlur}
                     required
                   />
                   {formErrors.lastName && (
@@ -210,8 +210,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     id="email"
                     name="email"
                     value={customer.email}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
+                    onChange={onInputChange}
+                    onBlur={onBlur}
                     required
                   />
                   {formErrors.email && (
@@ -225,8 +225,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
                     id="phone"
                     name="phone"
                     value={customer.phone}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
+                    onChange={onInputChange}
+                    onBlur={onBlur}
                     required
                   />
                   {formErrors.phone && (
@@ -239,8 +239,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
         </div>
         <div className="modal-footer">
           <div className="stage-buttons">
-            <button onClick={handleCustomerBackClick}>Back</button>
-            <button onClick={handleCustomerNextClick}>Next</button>
+            <button onClick={onCustomerBackClick}>Back</button>
+            <button onClick={onCustomerNextClick}>Next</button>
           </div>
         </div>
       </>
@@ -286,8 +286,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
         </div>
         <div className="modal-footer">
           <div className="stage-buttons">
-            <button onClick={handleBackClick}>Back</button>
-            <button onClick={handleBookClick}>Book now</button>
+            <button onClick={onBackClick}>Back</button>
+            <button onClick={onBookClick}>Book now</button>
           </div>
         </div>
       </>
@@ -310,7 +310,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
     }].concat(serviceItems);
   }
 
-  function handleBookClick() {
+  function onBookClick() {
     const products = getProducts();
     // const passengers = getPassengers();
 
@@ -325,8 +325,8 @@ export function BookingModal({ name, description, price, code, services, closeMo
   }
 
   return (
-    <div className="modal" onClick={handleModalOutsideClick}>
-      <div className="modal-box" onClick={handleModalBoxClick}>
+    <div className="modal" onClick={onModalOutsideClick}>
+      <div className="modal-box" onClick={onModalBoxClick}>
         <div className="modal-header">
           <span onClick={closeModal} className="close">
             &times;
