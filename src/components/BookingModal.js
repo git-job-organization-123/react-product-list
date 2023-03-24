@@ -27,24 +27,27 @@ export function BookingModal({ name, description, price, code, services, closeMo
     e.stopPropagation();
   }
 
-  // On clicking the Back button to go to the previous stage
+  // Go to the previous stage
   function onBackClick() {
     let backStage = stage - 1;
     setStage(backStage);
   }
 
-  // On clicking the Next button to go to the next stage
+  // Go to the next stage
   function onNextClick() {
     let nextStage = stage + 1;
     setStage(nextStage);
   }
 
-  // On selecting a service in stage 2
+  // On clicking a service in stage 2
   function onServiceSelect(service) {
     const serviceIndex = selectedServices.indexOf(service);
     if (serviceIndex === -1) {
+      // Select a service
       setSelectedServices([...selectedServices, service]);
-    } else {
+    }
+    else {
+      // De-select a service
       const newServices = [...selectedServices];
       newServices.splice(serviceIndex, 1);
       setSelectedServices(newServices);
@@ -110,17 +113,21 @@ export function BookingModal({ name, description, price, code, services, closeMo
       onBackClick();
     };
 
+    // Validate customer, then go to the next stage
     const onCustomerNextClick = (event) => {
       event.preventDefault();
 
       const errors = validateForm();
       setFormErrors(errors);
 
+      // Check for any customer form errors
       if (Object.keys(errors).length === 0) {
+        // No errors, go to next stage
         onNextClick();
       }
     };
 
+    // Validate customer form input on losing focus to the customer form input
     const onBlur = (event) => {
       let error = validateFormInput(event.target.name);
       if (!error) {
@@ -128,6 +135,7 @@ export function BookingModal({ name, description, price, code, services, closeMo
         error = {[event.target.name]: ''};
       }
 
+      // Show the customer form input error message
       setFormErrors((prevFormErrors) => ({ ...prevFormErrors, ...error }));
     };
 
@@ -294,29 +302,24 @@ export function BookingModal({ name, description, price, code, services, closeMo
   }
 
   // Products to book
-  function getProducts() {
-    const serviceItems = selectedServices.map((service) => {
+  function getBookingProducts() {
+    // This product + extra services
+    return [{
+      "name": name,
+      "code": code,
+    }].concat(selectedServices.map((service) => {
       return {
         "name": service.name,
         "code": service.code,
       }
-    });
-
-    // Put this product first
-    return [{
-      "name": name,
-      "code": code,
-    }].concat(serviceItems);
+    }));
   }
 
   function onBookClick() {
-    const products = getProducts();
-    // const passengers = getPassengers();
-
     // Book the booking
     book({
-      "products": products,
-      // "passengers": passengers
+      "products": getBookingProducts(),
+      // "passengers": getPassengers()
       "customer": customer
     }).then((response) => {
       alert(JSON.stringify(response));
