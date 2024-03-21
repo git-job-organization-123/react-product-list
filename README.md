@@ -11,9 +11,6 @@ Start React Product List:
 Goto: http://localhost:3000 in browser
 
 
-(UI is still crap)
-
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
